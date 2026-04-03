@@ -7,12 +7,20 @@ import 'owl.carousel/dist/assets/owl.theme.default.css';
 
 const HotCollections = () => {
   const [authors, setAuthors] = useState([])
+  const [loading, setLoading] = useState(true);
   
-   async function fetchAuthors() {
-    const { data } = await axios.get("https://us-central1-nft-cloud-functions.cloudfunctions.net/hotCollections")
-    console.log(data)
-    setAuthors(data)
+  async function fetchAuthors() {
+    try {
+      const { data } = await axios.get("https://us-central1-nft-cloud-functions.cloudfunctions.net/hotCollections");
+      console.log(data);
+      setAuthors(data);
+    } catch (error) {
+      console.error("Error fetching authors:", error);
+    } finally {
+      setLoading(false); 
+    }
   }
+
   useEffect(() => {
     fetchAuthors();
     }, [])
@@ -24,6 +32,7 @@ const HotCollections = () => {
     items: 1,
   };
 
+  
   return (
     <section id="section-collections" className="no-bottom">
       <div className="container">
@@ -34,6 +43,11 @@ const HotCollections = () => {
               <div className="small-border bg-color-2"></div>
             </div>
           </div>
+          {loading ? (
+            <div className="text-center">
+              <p>Loading...</p>
+            </div>
+          ) : (
           <OwlCarousel className="owl-theme" {...options}>
           {authors.map((author) => (
             <div className="item col-lg-3 col-md-6 col-sm-6 col-xs-12" key={author.id}>
@@ -59,6 +73,7 @@ const HotCollections = () => {
             </div>
           ))}
           </OwlCarousel>
+          )}
         </div>
       </div>
     </section>
