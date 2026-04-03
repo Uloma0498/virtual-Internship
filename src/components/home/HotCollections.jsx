@@ -22,7 +22,12 @@ const HotCollections = () => {
     loop: true,
     margin: 10,
     nav: true,
-    items: 1,
+    responsive: {
+    0:    { items: 1 },
+    576:  { items: 2 },
+    992:  { items: 3 },
+    1200: { items: 4 },
+  },
   };
 
   return (
@@ -38,7 +43,7 @@ const HotCollections = () => {
           {loading ? <p>Loading...</p> : (
           <OwlCarousel className="owl-theme" {...options}>
           {authors.map((author) => (
-            <div className="item col-lg-3 col-md-6 col-sm-6 col-xs-12" key={author.id}>
+            <div className="item" key={author.id}>
               <div className="nft_coll">
                 <div className="nft_wrap">
                   <Link to="/item-details">
