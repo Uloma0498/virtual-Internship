@@ -21,6 +21,7 @@ const HotCollections = () => {
   const options = {
     loop: true,
     margin: 10,
+    dots : false,
     nav: true,
     responsive: {
     0:    { items: 1 },
