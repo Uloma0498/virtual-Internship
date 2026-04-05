@@ -4,15 +4,16 @@ import axios from "axios";
 import OwlCarousel from 'react-owl-carousel';
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
-import SkeletonLoader from "../UI/Skeleton";
+import Skeleton from "../UI/Skeleton";
 
-const HotCollections = ({ author }) => {
+const HotCollections = () => {
   const [authors, setAuthors] = useState([])
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchAuthors() {
       const { data } = await axios.get("https://us-central1-nft-cloud-functions.cloudfunctions.net/hotCollections");
+      console.log(data);
       setAuthors(data);
     setLoading(false); 
   }
@@ -42,7 +43,7 @@ const HotCollections = ({ author }) => {
               <div className="small-border bg-color-2"></div>
             </div>
           </div>
-          {loading ? <SkeletonLoader count={6} /> : (
+          {loading ? <Skeleton width="100%" height="200px" borderRadius="10px" /> : (
           <OwlCarousel className="owl-theme" {...options}>
           {authors.map((author) => (
             <div className="item" key={author.id}>
