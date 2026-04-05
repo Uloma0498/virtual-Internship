@@ -4,8 +4,9 @@ import axios from "axios";
 import OwlCarousel from 'react-owl-carousel';
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
+import SkeletonLoader from "../UI/Skeleton";
 
-const HotCollections = () => {
+const HotCollections = ({ author }) => {
   const [authors, setAuthors] = useState([])
   const [loading, setLoading] = useState(true);
 
@@ -41,7 +42,7 @@ const HotCollections = () => {
               <div className="small-border bg-color-2"></div>
             </div>
           </div>
-          {loading ? <p>Loading...</p> : (
+          {loading ? <SkeletonLoader count={6} /> : (
           <OwlCarousel className="owl-theme" {...options}>
           {authors.map((author) => (
             <div className="item" key={author.id}>
