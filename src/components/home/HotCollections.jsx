@@ -13,7 +13,6 @@ const HotCollections = () => {
   useEffect(() => {
     async function fetchAuthors() {
       const { data } = await axios.get("https://us-central1-nft-cloud-functions.cloudfunctions.net/hotCollections");
-      console.log(data);
       setAuthors(data);
     setLoading(false); 
   }
